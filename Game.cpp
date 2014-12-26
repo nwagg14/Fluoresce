@@ -57,5 +57,8 @@ void PrintError(const std::string &str) {
 }
 
 SDL_Texture *LoadImage(const std::string &filename, SDL_Renderer *ren) {
-   return NULL;
+    SDL_Texture *tex = IMG_LoadTexture(ren, filename.c_str());
+    
+    if(tex == NULL) PrintError("IMG_LoadTexture");
+    return tex;
 }
