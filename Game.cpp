@@ -10,14 +10,15 @@ int Game::Initialize() {
 
     // initialize SDL
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-        printf("SDL_Init Error: %s\n", SDL_GetError());
+        PrintError("SDL_Init Error");
         return 1;
     }
 
     this->running = false;  
      
     // initialize window and renderer 
-    this->win = SDL_CreateWindow("Hello World", 100, 100, 640, 480, SDL_WINDOW_SHOWN);
+    this->win = SDL_CreateWindow("Hello World", 100, 100, 
+        SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     this->ren = SDL_CreateRenderer(this->win, -1,
         SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
    
@@ -49,4 +50,12 @@ int Game::Terminate() {
     SDL_DestroyWindow(this->win);
     SDL_Quit();
     return 0;
+}
+
+void PrintError(const std::string &str) {
+    printf("%s: %s\n", str.c_str(), SDL_GetError());
+}
+
+SDL_Texture *LoadImage(const std::string &filename, SDL_Renderer *ren) {
+   return NULL;
 }

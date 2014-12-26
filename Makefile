@@ -1,6 +1,6 @@
 CPP = clang++
 LINK = clang++
-LIBS = -lSDL2
+LIBS = -lSDL2 -lSDL_image
 FLAGS = -Weverything -std=c++11 -c
 
 all: game
