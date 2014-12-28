@@ -17,7 +17,7 @@ int Game::Initialize() {
     this->running = false;  
      
     // initialize window and renderer 
-    this->win = SDL_CreateWindow("Hello World", 100, 100, 
+    this->win = SDL_CreateWindow("Fluoresce", 100, 100, 
         SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     this->ren = SDL_CreateRenderer(this->win, -1,
         SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
