@@ -14,30 +14,58 @@ int Game::Initialize() {
         return 1;
     }
 
-    this->running = false;  
+    this->running = PAUSED ;  
      
-    // initialize window and renderer 
+    // initialize window, return with the value 2 on failure 
     this->win = SDL_CreateWindow("Fluoresce", 100, 100, 
         SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    if(this->win == NULL) return 2;
+
+    // initialize renderer, return with the value 3 on failure
     this->ren = SDL_CreateRenderer(this->win, -1,
         SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-   
-    // return 2 to signify something is wrong is win or ren is null
-    // return 0 otherwise to signify success 
-    return (this->win == NULL || this->ren == NULL) ? 2 : 0;
+    if(this->ren == NULL) return 3;
+
+    //load textures
+    this->grid   = LoadImage("Grid.png", ren);
+    this->blocks = LoadImage("Blocks.png", ren);
+
+    // initialize entities
+    int i = 0;
+    entities.reserve(10);
+    for(i = 0; i < 10; i++){
+        Entity e = Entity(blocks, 31*(i%2), 0, 31, 31, 32*i, 32*i); 
+        entities.push_back(e);
+    }
+    return 0; 
 }
 
 /*  returns 0 on success
  */
 int Game::Loop() {
-    this->running = true;
-    while(this->running){
+    //this->running = RUNNING;
+    while(this->running == RUNNING){
+
+        SDL_Event evnt;
+        while(SDL_PollEvent(&evnt)){
+            if(evnt.type == SDL_QUIT) {
+                running = PAUSED;
+            }
+            
+        }
+        Render();
 
     }
     return 0;
 }
 
 int Game::Render() {
+
+    SDL_RenderClear( this->ren);
+    for(int i = 0; i < entities.size(); i++) {
+        SDL_RenderCopy(this->ren, entities[i].texture, &entities[i].srcRect, &entities[i].destRect);
+    }
+    SDL_RenderPresent(this->ren);
     return 0;
 }
 

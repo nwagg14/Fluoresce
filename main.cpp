@@ -12,6 +12,7 @@ int main(int argc, char *argv[]){
     }   
     
     // the window and renderer was initialized properly. Start our game loop! 
+    game.running = RUNNING; 
     game.Loop();
     game.Terminate();
 
