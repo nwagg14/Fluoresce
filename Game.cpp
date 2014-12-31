@@ -24,6 +24,7 @@ int Game::Initialize() {
         SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if(this->ren == NULL) return 3;
 
+    states.push_back(new MenuState(win, ren));
     // initialize states
     /* 
     MENU
@@ -59,12 +60,12 @@ int Game::Loop() {
         
         // switch states if necessary
         if (nextStateName != currentStateName) {
-            states[currentStateName].deactivate();
-            states[nextStateName].activate();
+            states[currentStateName]->deactivate();
+            states[nextStateName]->activate();
             currentStateName = nextStateName;
         } 
 
-        nextStateName = states[currentStateName].update();
+        nextStateName = states[currentStateName]->update();
     }
 
     return 0;
@@ -88,9 +89,9 @@ int Game::HandleEvent(SDL_Event *event) {
 
 int Game::Terminate() {
 
-    int i;
+    unsigned int i;
     for(i = 0; i < FLU_NUM_STATES; i++) {
-        states[i].terminate();
+        states[i]->terminate();
     }
     
     SDL_DestroyRenderer(this->ren);

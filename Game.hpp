@@ -5,6 +5,7 @@
 #include <SDL2/SDL_image.h>
 #include "Utils.hpp"
 #include "State.hpp"
+#include "MenuState.hpp"
 #include "Entity.hpp"
 
 #define SCREEN_WIDTH  640
@@ -16,7 +17,7 @@ class Game {
         SDL_Window   *win;
         SDL_Renderer *ren;
         
-        std::vector<State> states;
+        std::vector<State*> states;
 
 /*      SDL_Texture* grid; 
         SDL_Texture* blocks;

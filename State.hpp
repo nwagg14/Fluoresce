@@ -21,19 +21,19 @@ class State {
         SDL_Window   *win;
         SDL_Renderer *ren;
     public:
-
+        virtual ~State() {};
         
         // called by Game's Initialize and Terminate
         
         // should allocate any necessary memory and initialize it  
-        virtual void initialize(SDL_Window *w, SDL_Renderer *r);   
-        virtual void terminate();   // should free all memory associated with this state
+//        virtual void initialize(SDL_Window *w, SDL_Renderer *r) = 0;   
+        virtual void terminate() = 0;   // should free all memory associated with this state
         
-        virtual void activate();    // called once before looping in update
-        virtual void deactivate();  // called before transitioning to the next state
+        virtual void activate() = 0;    // called once before looping in update
+        virtual void deactivate() = 0;  // called before transitioning to the next state
  
-        virtual FLU_StateName update();
-        virtual void render();
+        virtual FLU_StateName update() = 0;
+        virtual void render() = 0;
         
 };
 
