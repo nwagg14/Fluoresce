@@ -15,10 +15,10 @@ class Game {
     private:
         SDL_Window   *win;
         SDL_Renderer *ren;
-        State currentState;
+        
         std::vector<State> states;
 
-/*        SDL_Texture* grid; 
+/*      SDL_Texture* grid; 
         SDL_Texture* blocks;
         std::vector<Entity> entities;
 */

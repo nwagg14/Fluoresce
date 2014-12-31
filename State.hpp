@@ -17,11 +17,20 @@ enum FLU_StateName{
 const int FLU_NUM_STATES = 5; // since EXIT isn't really a state...
 
 class State {
+    protected:
+        SDL_Window   *win;
+        SDL_Renderer *ren;
     public:
-        void initialize();
-        void activate();
-        void deactivate(); 
-        void terminate();
+
+        
+        // called by Game's Initialize and Terminate
+        
+        // should allocate any necessary memory and initialize it  
+        virtual void initialize(SDL_Window *w, SDL_Renderer *r);   
+        virtual void terminate();   // should free all memory associated with this state
+        
+        virtual void activate();    // called once before looping in update
+        virtual void deactivate();  // called before transitioning to the next state
  
         virtual FLU_StateName update();
         virtual void render();

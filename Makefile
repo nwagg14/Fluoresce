@@ -5,7 +5,7 @@ FLAGS = -Weverything -std=c++11 -g -c
 
 all: game
 
-game: game.o main.o utils.o entity.o state.o
+game: game.o main.o utils.o entity.o menustate.o
 	$(LINK) $(LIBS) $^ -o $@
 
 main.o: main.cpp Game.hpp
@@ -20,8 +20,8 @@ game.o: Game.cpp Game.hpp
 utils.o: Utils.cpp Utils.hpp
 	$(CPP) $(FLAGS) Utils.cpp -o $@
 
-state.o: State.cpp State.hpp
-	$(CPP) $(FLAGS) State.cpp -o $@
+menustate.o: MenuState.cpp MenuState.hpp State.hpp
+	$(CPP) $(FLAGS) MenuState.cpp -o $@
 
 
 clean:
