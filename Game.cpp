@@ -14,8 +14,6 @@ int Game::Initialize() {
         return 1;
     }
 
-    this->running = PAUSED ;  
-     
     // initialize window, return with the value 2 on failure 
     this->win = SDL_CreateWindow("Fluoresce", 100, 100, 
         SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
@@ -26,10 +24,19 @@ int Game::Initialize() {
         SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if(this->ren == NULL) return 3;
 
+    // initialize states
+    /* 
+    MENU
+    SCORES
+    GAME
+    END 
+    PAUSE
+    */
+
+/*
     //load textures
     this->grid   = LoadImage("Grid.png", ren);
     this->blocks = LoadImage("Blocks.png", ren);
-
     // initialize entities
     int i = 0;
     entities.reserve(10);
@@ -37,28 +44,33 @@ int Game::Initialize() {
         Entity e = Entity(blocks, 31*(i%2), 0, 31, 31, 32*i, 32*i); 
         entities.push_back(e);
     }
+*/
     return 0; 
 }
 
 /*  returns 0 on success
  */
 int Game::Loop() {
-    //this->running = RUNNING;
-    while(this->running == RUNNING){
+    FLU_StateName currentStateName = MENU; 
+    FLU_StateName nextStateName    = MENU;
+   
+    // exit the loop if the next state we want is the exit state 
+    while(nextStateName != EXIT){
+        
+        // switch states if necessary
+        if (nextStateName != currentStateName) {
+            states[currentStateName].deactivate();
+            states[nextStateName].activate();
+            currentStateName = nextStateName;
+        } 
 
-        SDL_Event evnt;
-        while(SDL_PollEvent(&evnt)){
-            if(evnt.type == SDL_QUIT) {
-                running = PAUSED;
-            }
-            
-        }
-        Render();
-
+        nextStateName = states[currentStateName].update();
     }
+
     return 0;
 }
 
+/*
 int Game::Render() {
 
     SDL_RenderClear( this->ren);
@@ -72,21 +84,18 @@ int Game::Render() {
 int Game::HandleEvent(SDL_Event *event) {
     return 0;
 }
+*/
 
 int Game::Terminate() {
+
+    int i;
+    for(i = 0; i < FLU_NUM_STATES; i++) {
+        states[i].terminate();
+    }
+    
     SDL_DestroyRenderer(this->ren);
     SDL_DestroyWindow(this->win);
     SDL_Quit();
     return 0;
 }
 
-void PrintError(const std::string &str) {
-    printf("%s: %s\n", str.c_str(), SDL_GetError());
-}
-
-SDL_Texture *LoadImage(const std::string &filename, SDL_Renderer *ren) {
-    SDL_Texture *tex = IMG_LoadTexture(ren, filename.c_str());
-    
-    if(tex == NULL) PrintError("IMG_LoadTexture");
-    return tex;
-}
