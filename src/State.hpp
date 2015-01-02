@@ -15,7 +15,7 @@ enum FLU_StateName{
 };              // instead, Loop() begins the exit proceedure when
                 // the EXIT state is next
 
-const int FLU_NUM_STATES = 5; // since EXIT isn't really a state...
+const int FLU_NUM_STATES = 1; // since EXIT isn't really a state...
 
 class State {
     protected:

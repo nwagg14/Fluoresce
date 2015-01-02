@@ -26,7 +26,7 @@ int Game::Initialize() {
 
     TTF_Init();
 
-    font = TTF_OpenFont("cnr.otf", 16);
+    font = TTF_OpenFont("assets/cnr.otf", 16);
 
     states[MENU] = new MenuState(win, ren, font);
     // initialize states
