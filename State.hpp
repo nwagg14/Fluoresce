@@ -3,6 +3,7 @@
 #include <vector>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 
 enum FLU_StateName{
     MENU = 0,
@@ -20,8 +21,9 @@ class State {
     protected:
         SDL_Window   *win;
         SDL_Renderer *ren;
+        TTF_Font     *font;
     public:
-        virtual ~State() {};
+        virtual ~State() {}
         
         // called by Game's Initialize and Terminate
         

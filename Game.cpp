@@ -24,7 +24,11 @@ int Game::Initialize() {
         SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if(this->ren == NULL) return 3;
 
-    states.push_back(new MenuState(win, ren));
+    TTF_Init();
+
+    font = TTF_OpenFont("cnr.otf", 16);
+
+    states[MENU] = new MenuState(win, ren, font);
     // initialize states
     /* 
     MENU
@@ -81,10 +85,6 @@ int Game::Render() {
     SDL_RenderPresent(this->ren);
     return 0;
 }
-
-int Game::HandleEvent(SDL_Event *event) {
-    return 0;
-}
 */
 
 int Game::Terminate() {
@@ -99,4 +99,3 @@ int Game::Terminate() {
     SDL_Quit();
     return 0;
 }
-

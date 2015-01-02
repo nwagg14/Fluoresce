@@ -1,6 +1,5 @@
 #ifndef _FLUR_GAME_
 #define _FLUR_GAME_
-#include <vector>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "Utils.hpp"
@@ -16,8 +15,9 @@ class Game {
     private:
         SDL_Window   *win;
         SDL_Renderer *ren;
+        TTF_Font     *font;
         
-        std::vector<State*> states;
+        State *states[FLU_NUM_STATES];
 
 /*      SDL_Texture* grid; 
         SDL_Texture* blocks;
