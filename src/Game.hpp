@@ -7,10 +7,6 @@
 #include "MenuState.hpp"
 #include "Entity.hpp"
 
-#define SCREEN_WIDTH  640
-#define SCREEN_HEIGHT 480
-
-
 class Game {
     private:
         SDL_Window   *win;

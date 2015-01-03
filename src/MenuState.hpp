@@ -1,19 +1,15 @@
 #ifndef _FLUR_MENUSTATE_
 #define _FLUR_MENUSTATE_
 #include "State.hpp"
-#include "Game.hpp"
-#include <string>
+#include "Text.hpp"
 
 class MenuState : public State {
     private:
-        std::vector<std::string> items;
+        std::vector<Text*> items;
         int currSelection;
         SDL_Color selectedColor;
         SDL_Color unselectedColor;
 
-        std::vector<SDL_Texture*> selectedText;
-        std::vector<SDL_Texture*> unselectedText;
-    
     public:
         MenuState(SDL_Window *w, SDL_Renderer *r, TTF_Font *f);
         ~MenuState() {}
